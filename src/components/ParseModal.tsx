@@ -48,15 +48,15 @@ export default function ParseModal({ isOpen, onClose, onEventParsed }: ParseModa
         />
         
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden"
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
         >
-          <div className="p-6 space-y-4">
+          <div className="p-6 space-y-4 overflow-y-auto custom-scrollbar">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
-                <div className="p-2 bg-purple-100 text-purple-600 rounded-lg">
+                <div className="p-2 bg-red-100 text-red-600 rounded-lg">
                   <Sparkles size={20} />
                 </div>
                 <h2 className="text-xl font-bold text-gray-900">AI Event Parser</h2>
@@ -69,12 +69,12 @@ export default function ParseModal({ isOpen, onClose, onEventParsed }: ParseModa
               </button>
             </div>
 
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 leading-relaxed">
               Paste an event announcement, Discord message, or Instagram caption. Gemini will extract the details and add it to your calendar.
             </p>
 
             <textarea
-              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 resize-none transition-all"
+              className="w-full h-40 p-4 bg-gray-50 border border-gray-200 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 resize-none transition-all"
               placeholder="e.g., 'Hey everyone! CSSS is hosting a pizza party next Tuesday at 5pm in ASB 9700. Come hang out!'"
               value={text}
               onChange={(e) => setText(e.target.value)}
@@ -87,10 +87,10 @@ export default function ParseModal({ isOpen, onClose, onEventParsed }: ParseModa
               </div>
             )}
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 pt-2">
               <button
                 onClick={onClose}
-                className="flex-1 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors"
+                className="flex-1 px-6 py-3 bg-gray-100 text-gray-700 rounded-xl font-bold hover:bg-gray-200 transition-colors text-sm"
                 disabled={isParsing}
               >
                 Cancel
@@ -98,7 +98,7 @@ export default function ParseModal({ isOpen, onClose, onEventParsed }: ParseModa
               <button
                 onClick={handleParse}
                 disabled={isParsing || !text.trim()}
-                className="flex-[2] flex items-center justify-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl font-bold hover:bg-purple-700 transition-colors shadow-lg shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-[2] flex items-center justify-center gap-2 px-6 py-3 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-colors shadow-lg shadow-red-500/20 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
               >
                 {isParsing ? (
                   <>

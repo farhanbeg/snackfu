@@ -45,24 +45,24 @@ export default function Filters({ filters, setFilters, onToday, onReset, onParse
           <div className="flex items-center gap-2 w-full md:w-auto">
             <button
               onClick={onParse}
-              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium hover:bg-purple-700 transition-colors shadow-sm shadow-purple-500/20"
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-full text-sm font-medium hover:bg-red-700 transition-colors shadow-sm shadow-red-500/20"
             >
-              <Sparkles size={16} />
-              Parse
+              <Sparkles size={16} className="shrink-0" />
+              <span>Parse</span>
             </button>
             <button
               onClick={onToday}
               className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"
             >
-              <CalendarIcon size={16} />
-              Today
+              <CalendarIcon size={16} className="shrink-0" />
+              <span>Today</span>
             </button>
             <button
               onClick={onReset}
               className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors"
             >
-              <RotateCcw size={16} />
-              Reset
+              <RotateCcw size={16} className="shrink-0" />
+              <span>Reset</span>
             </button>
           </div>
         </div>
