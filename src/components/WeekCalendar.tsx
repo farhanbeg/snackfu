@@ -18,14 +18,20 @@ interface WeekCalendarProps {
 
 const HOURS = Array.from({ length: 15 }).map((_, i) => i + 8); // 8:00 to 22:00
 
+const formatHour = (hour: number) => {
+  if (hour === 0) return "12AM";
+  if (hour === 12) return "12PM";
+  return hour > 12 ? `${hour - 12}PM` : `${hour}AM`;
+};
+
 const CATEGORY_COLORS: Record<string, string> = {
-  Social: "bg-blue-50 border-blue-200 text-blue-900 hover:border-blue-400",
-  Career: "bg-emerald-50 border-emerald-200 text-emerald-900 hover:border-emerald-400",
-  Academic: "bg-violet-50 border-violet-200 text-violet-900 hover:border-violet-400",
-  Culture: "bg-amber-50 border-amber-200 text-amber-900 hover:border-amber-400",
-  Sports: "bg-rose-50 border-rose-200 text-rose-900 hover:border-rose-400",
-  Volunteer: "bg-cyan-50 border-cyan-200 text-cyan-900 hover:border-cyan-400",
-  Other: "bg-slate-50 border-slate-200 text-slate-900 hover:border-slate-400",
+  Social: "bg-blue-100/80 border-blue-300 text-blue-900 hover:border-blue-500",
+  Career: "bg-emerald-100/80 border-emerald-300 text-emerald-900 hover:border-emerald-500",
+  Academic: "bg-violet-100/80 border-violet-300 text-violet-900 hover:border-violet-500",
+  Culture: "bg-amber-100/80 border-amber-300 text-amber-900 hover:border-amber-500",
+  Sports: "bg-rose-100/80 border-rose-300 text-rose-900 hover:border-rose-500",
+  Volunteer: "bg-cyan-100/80 border-cyan-300 text-cyan-900 hover:border-cyan-500",
+  Other: "bg-slate-100/80 border-slate-300 text-slate-900 hover:border-slate-500",
 };
 
 const CATEGORY_TEXT_MUTED: Record<string, string> = {
@@ -71,13 +77,13 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
       </div>
 
       {/* Calendar Body */}
-      <div className="flex-1 overflow-y-auto relative custom-scrollbar">
-        <div className="flex min-h-[600px]">
+      <div className="flex-1 overflow-y-auto relative custom-scrollbar bg-gray-50/30">
+        <div className="flex min-h-[800px] w-full">
           {/* Time Axis */}
-          <div className="w-16 flex-shrink-0 border-r border-gray-100 bg-gray-50/50">
+          <div className="w-16 flex-shrink-0 border-r border-gray-100 bg-white z-10">
             {HOURS.map(hour => (
               <div key={hour} className="h-[40px] text-[10px] font-bold text-gray-400 text-right pr-2 pt-1 border-b border-gray-100/50">
-                {hour}:00
+                {formatHour(hour)}
               </div>
             ))}
           </div>

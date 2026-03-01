@@ -213,7 +213,7 @@ export default function App() {
       {/* Mobile list view toggle could go here, but we'll stick to a responsive grid for now */}
       <footer className="bg-white border-t border-gray-100 py-4 px-8 text-center">
         <p className="text-xs text-gray-400 font-medium tracking-wide uppercase">
-          &copy; 2026 SnackFU • SFU Hackathon Demo
+          SnackFU • Mountain Madness 2026 Hackathon Project
         </p>
       </footer>
     </div>
