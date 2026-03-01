@@ -23,7 +23,7 @@ export const isEventInNextTwoHours = (eventStart: string, now: Date) => {
   return diff > 0 && diff <= 2 * 60 * 60 * 1000;
 };
 
-export const getEventPosition = (start: string, end: string, calendarStartHour: number = 8) => {
+export const getEventPosition = (start: string, end: string, calendarStartHour: number = 8, calendarEndHour: number = 23) => {
   const startDate = parseISO(start);
   const endDate = parseISO(end);
   
@@ -31,9 +31,10 @@ export const getEventPosition = (start: string, end: string, calendarStartHour: 
   const endMinutes = endDate.getHours() * 60 + endDate.getMinutes();
   
   const calendarStartMinutes = calendarStartHour * 60;
+  const totalMinutes = (calendarEndHour - calendarStartHour) * 60;
   
-  const top = Math.max(0, (startMinutes - calendarStartMinutes) / 60 * 100); // percentage
-  const height = (endMinutes - startMinutes) / 60 * 100; // percentage
+  const top = Math.max(0, (startMinutes - calendarStartMinutes) / totalMinutes * 100); // percentage
+  const height = (endMinutes - startMinutes) / totalMinutes * 100; // percentage
   
   return { top: `${top}%`, height: `${height}%` };
 };

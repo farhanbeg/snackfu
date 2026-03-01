@@ -107,7 +107,7 @@ export default function Filters({ filters, setFilters, onToday, onReset }: Filte
                 />
                 <div className="w-10 h-5 bg-gray-200 rounded-full peer peer-checked:bg-red-500 transition-colors after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:after:translate-x-full"></div>
               </div>
-              <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Free to join</span>
+              <span className="text-sm font-medium text-gray-600 group-hover:text-gray-900 transition-colors">Anyone welcome</span>
             </label>
           </div>
 
