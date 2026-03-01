@@ -1,11 +1,66 @@
-<div align="center">
+# SnackFU - SFU Event & Snack Calendar
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+SnackFU is a weekly event calendar for Simon Fraser University (SFU) students that highlights club events, workshops, and social gatherings—with a special focus on finding free snacks.
 
-  <h1>Built with AI Studio</h2>
+## Features
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- **Weekly Calendar Grid**: A clean, modern 7-day view of all campus events.
+- **Smart Filters**: Filter by campus (Burnaby, Surrey, Vancouver), category, and snack availability.
+- **Upcoming Highlights**: Events happening within the next 2 hours are automatically highlighted in red.
+- **Event Details**: Click any event to see a summary, location, and snack details.
+- **ICS Export**: Add events directly to your personal calendar with one click.
+- **Join Links**: Quick access to Discord, Instagram, or SFU event pages.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## How to Run
 
-</div>
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## How to Add Events
+
+Events are stored in `src/data/events.ts`. To add a new event, append a new object to the `events` array following the `Event` schema.
+
+### Event Schema
+
+```typescript
+interface Event {
+  id: string;
+  title: string;
+  club: string;
+  campus: "Burnaby" | "Surrey" | "Vancouver";
+  location: string;
+  start: string; // ISO 8601 string with timezone offset
+  end: string;   // ISO 8601 string with timezone offset
+  category: "Social" | "Career" | "Academic" | "Culture" | "Sports" | "Volunteer" | "Other";
+  snacks: {
+    has: boolean;
+    types?: string[]; // Optional list of snack types
+  };
+  freeToJoin: boolean;
+  joinLink: string;
+  sourceType: "Discord" | "Instagram" | "SFU";
+  sourceLink: string;
+  description?: string;
+}
+```
+
+## Tech Stack
+
+- **Framework**: React 19 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS 4
+- **Animation**: Motion (formerly Framer Motion)
+- **Icons**: Lucide React
+- **Date Handling**: date-fns
