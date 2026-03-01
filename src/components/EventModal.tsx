@@ -63,7 +63,7 @@ export default function EventModal({ event, onClose }: EventModalProps) {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold uppercase tracking-tight text-gray-400">Time</p>
-                  <p className="text-sm font-medium">{format(startDate, "MMM d, HH:mm")} – {format(endDate, "HH:mm")}</p>
+                  <p className="text-sm font-medium">{format(startDate, "MMM d, h:mm a")} – {format(endDate, "h:mm a")}</p>
                 </div>
               </div>
               

@@ -10,11 +10,11 @@ export const getDaysInWeek = (startDate: Date) => {
 };
 
 export const formatTime = (date: Date) => {
-  return format(date, "HH:mm");
+  return format(date, "h:mm a");
 };
 
 export const formatDateRange = (start: Date, end: Date) => {
-  return `${format(start, "MMM d, HH:mm")} – ${format(end, "HH:mm")}`;
+  return `${format(start, "MMM d, h:mm a")} – ${format(end, "h:mm a")}`;
 };
 
 export const isEventInNextTwoHours = (eventStart: string, now: Date) => {

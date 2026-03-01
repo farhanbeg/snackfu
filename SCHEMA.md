@@ -94,3 +94,21 @@ export const events = [
 1. **Date Format**: Use ISO 8601 strings with the `-08:00` offset for Vancouver time.
 2. **Persistence**: Uploaded files are stored in your browser's `localStorage`. To revert to the default data, clear your browser cache or site data for this URL.
 3. **Validation**: The app performs a basic check to ensure the uploaded content is an array. If the format is invalid, an alert will notify you.
+
+---
+
+## AI Event Parser (Gemini)
+
+The **Parse** button in the filter bar allows you to add events by pasting raw text (e.g., Discord announcements).
+
+### Configuration
+To use this feature outside of the AI Studio environment:
+1. Create a `.env` file in the project root.
+2. Add `VITE_GEMINI_API_KEY=your_api_key_here`.
+3. Restart your development server.
+
+### How it Works
+- Gemini extracts the title, club, location, and time.
+- It intelligently infers dates (e.g., "next Monday") based on the current app date (March 1, 2026).
+- It categorizes the event and identifies if snacks are provided.
+- New events are added to your local session and persisted in `localStorage`.

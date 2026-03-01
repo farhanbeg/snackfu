@@ -1,4 +1,4 @@
-import { Search, RotateCcw, Calendar as CalendarIcon } from "lucide-react";
+import { Search, RotateCcw, Calendar as CalendarIcon, Sparkles } from "lucide-react";
 import { Campus, Category, FilterState } from "../types";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -12,12 +12,13 @@ interface FiltersProps {
   setFilters: (filters: FilterState) => void;
   onToday: () => void;
   onReset: () => void;
+  onParse: () => void;
 }
 
 const campuses: Campus[] = ["Burnaby", "Surrey", "Vancouver"];
 const categories: (Category | "All")[] = ["All", "Social", "Career", "Academic", "Culture", "Sports", "Volunteer", "Other"];
 
-export default function Filters({ filters, setFilters, onToday, onReset }: FiltersProps) {
+export default function Filters({ filters, setFilters, onToday, onReset, onParse }: FiltersProps) {
   const toggleCampus = (campus: Campus) => {
     const newCampuses = filters.campuses.includes(campus)
       ? filters.campuses.filter(c => c !== campus)
@@ -42,6 +43,13 @@ export default function Filters({ filters, setFilters, onToday, onReset }: Filte
           </div>
           
           <div className="flex items-center gap-2 w-full md:w-auto">
+            <button
+              onClick={onParse}
+              className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium hover:bg-purple-700 transition-colors shadow-sm shadow-purple-500/20"
+            >
+              <Sparkles size={16} />
+              Parse
+            </button>
             <button
               onClick={onToday}
               className="flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-full text-sm font-medium hover:bg-gray-800 transition-colors"

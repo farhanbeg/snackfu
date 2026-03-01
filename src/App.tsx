@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Filters from "./components/Filters";
 import WeekCalendar from "./components/WeekCalendar";
 import EventModal from "./components/EventModal";
+import ParseModal from "./components/ParseModal";
 import { parseISO } from "date-fns";
 
 const INITIAL_FILTERS: FilterState = {
@@ -22,6 +23,7 @@ export default function App() {
   const [viewDate, setViewDate] = useState(new Date("2026-03-01T00:30:00-08:00"));
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [isParseModalOpen, setIsParseModalOpen] = useState(false);
   const [allEvents, setAllEvents] = useState<Event[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -118,6 +120,12 @@ export default function App() {
     fileInputRef.current?.click();
   };
 
+  const handleEventParsed = (event: Event) => {
+    const newEvents = [...allEvents, event];
+    setAllEvents(newEvents);
+    localStorage.setItem("snackfu_events", JSON.stringify(newEvents));
+  };
+
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -176,6 +184,7 @@ export default function App() {
         setFilters={setFilters} 
         onToday={handleToday} 
         onReset={handleReset} 
+        onParse={() => setIsParseModalOpen(true)}
       />
 
       <main className="flex-1 flex flex-col overflow-hidden">
@@ -208,6 +217,12 @@ export default function App() {
       <EventModal 
         event={selectedEvent} 
         onClose={() => setSelectedEvent(null)} 
+      />
+
+      <ParseModal
+        isOpen={isParseModalOpen}
+        onClose={() => setIsParseModalOpen(false)}
+        onEventParsed={handleEventParsed}
       />
 
       {/* Mobile list view toggle could go here, but we'll stick to a responsive grid for now */}

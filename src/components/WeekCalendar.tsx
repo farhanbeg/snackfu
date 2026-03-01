@@ -143,7 +143,7 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
                               "text-[9px] mt-0.5 font-medium",
                               isUpcoming ? "text-red-100" : mutedColor
                             )}>
-                              {format(parseISO(event.start), "HH:mm")} – {format(parseISO(event.end), "HH:mm")}
+                              {format(parseISO(event.start), "h:mm a")} – {format(parseISO(event.end), "h:mm a")}
                             </p>
                           </div>
                           
