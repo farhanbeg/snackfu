@@ -1,6 +1,7 @@
 import { X, MapPin, Clock, Users, ExternalLink, Download, Cookie, Info } from "lucide-react";
 import { Event } from "../types";
-import { parseISO, format } from "date-fns";
+import { format } from "date-fns";
+import { parseAsLocal } from "../utils/date";
 import { generateICS } from "../utils/ics";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -12,8 +13,8 @@ interface EventModalProps {
 export default function EventModal({ event, onClose }: EventModalProps) {
   if (!event) return null;
 
-  const startDate = parseISO(event.start);
-  const endDate = parseISO(event.end);
+  const startDate = parseAsLocal(event.start);
+  const endDate = parseAsLocal(event.end);
 
   const generateSummary = (e: Event) => {
     const snackInfo = e.snacks.has 

@@ -1,13 +1,12 @@
 import { useState, useMemo, useEffect, useRef, ChangeEvent } from "react";
 import { events as initialEvents } from "./data/events";
 import { FilterState, Event, Campus } from "./types";
-import { getStartOfWeek, getDaysInWeek } from "./utils/date";
+import { getStartOfWeek, getDaysInWeek, parseAsLocal } from "./utils/date";
 import Header from "./components/Header";
 import Filters from "./components/Filters";
 import WeekCalendar from "./components/WeekCalendar";
 import EventModal from "./components/EventModal";
 import ParseModal from "./components/ParseModal";
-import { parseISO } from "date-fns";
 
 const INITIAL_FILTERS: FilterState = {
   campuses: ["Burnaby", "Surrey", "Vancouver"],
@@ -19,8 +18,8 @@ const INITIAL_FILTERS: FilterState = {
 
 export default function App() {
   // Use the current date from metadata: 2026-03-01
-  const [now, setNow] = useState(new Date("2026-03-01T00:30:00-08:00"));
-  const [viewDate, setViewDate] = useState(new Date("2026-03-01T00:30:00-08:00"));
+  const [now, setNow] = useState(parseAsLocal("2026-03-01T00:30:00-08:00"));
+  const [viewDate, setViewDate] = useState(parseAsLocal("2026-03-01T00:30:00-08:00"));
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [isParseModalOpen, setIsParseModalOpen] = useState(false);

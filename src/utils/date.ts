@@ -1,7 +1,15 @@
-import { format, startOfWeek, addDays, isSameDay, parseISO, startOfDay, endOfDay } from "date-fns";
+import { format, startOfWeek, addDays, isSameDay, parseISO } from "date-fns";
+
+/**
+ * Parses an ISO string as local time, ignoring the timezone offset.
+ * This ensures "Wall Clock" consistency across different user timezones.
+ */
+export const parseAsLocal = (isoString: string) => {
+  const match = isoString.match(/^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})/);
+  return match ? new Date(match[1]) : new Date(isoString);
+};
 
 export const getStartOfWeek = (date: Date) => {
-  // SFU weeks usually start on Monday for calendars
   return startOfWeek(date, { weekStartsOn: 1 });
 };
 
@@ -18,23 +26,23 @@ export const formatDateRange = (start: Date, end: Date) => {
 };
 
 export const isEventInNextTwoHours = (eventStart: string, now: Date) => {
-  const start = parseISO(eventStart);
+  const start = parseAsLocal(eventStart);
   const diff = start.getTime() - now.getTime();
   return diff > 0 && diff <= 2 * 60 * 60 * 1000;
 };
 
-export const getEventPosition = (start: string, end: string, calendarStartHour: number = 8, calendarEndHour: number = 23) => {
-  const startDate = parseISO(start);
-  const endDate = parseISO(end);
+export const getEventPosition = (start: string, end: string, calendarStartHour: number = 8) => {
+  const startDate = parseAsLocal(start);
+  const endDate = parseAsLocal(end);
   
   const startMinutes = startDate.getHours() * 60 + startDate.getMinutes();
   const endMinutes = endDate.getHours() * 60 + endDate.getMinutes();
   
   const calendarStartMinutes = calendarStartHour * 60;
-  const totalMinutes = (calendarEndHour - calendarStartHour) * 60;
   
-  const top = Math.max(0, (startMinutes - calendarStartMinutes) / totalMinutes * 100); // percentage
-  const height = (endMinutes - startMinutes) / totalMinutes * 100; // percentage
+  // 40px per hour = 0.666px per minute
+  const top = Math.max(0, (startMinutes - calendarStartMinutes) * (40 / 60));
+  const height = Math.max(20, (endMinutes - startMinutes) * (40 / 60)); // Min height for visibility
   
-  return { top: `${top}%`, height: `${height}%` };
+  return { top: `${top}px`, height: `${height}px` };
 };

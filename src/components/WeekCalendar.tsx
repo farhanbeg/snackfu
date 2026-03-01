@@ -1,6 +1,6 @@
 import { Event } from "../types";
-import { format, parseISO, isSameDay } from "date-fns";
-import { getEventPosition, isEventInNextTwoHours } from "../utils/date";
+import { format, isSameDay } from "date-fns";
+import { getEventPosition, isEventInNextTwoHours, parseAsLocal } from "../utils/date";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { motion } from "motion/react";
@@ -78,9 +78,9 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
 
       {/* Calendar Body */}
       <div className="flex-1 overflow-y-auto relative custom-scrollbar bg-gray-50/30">
-        <div className="flex min-h-[800px] w-full">
+        <div className="flex min-h-[600px] w-full bg-white">
           {/* Time Axis */}
-          <div className="w-16 flex-shrink-0 border-r border-gray-100 bg-white z-10">
+          <div className="w-16 flex-shrink-0 border-r border-gray-100 bg-white z-10 sticky left-0">
             {HOURS.map(hour => (
               <div key={hour} className="h-[40px] text-[10px] font-bold text-gray-400 text-right pr-2 pt-1 border-b border-gray-100/50">
                 {formatHour(hour)}
@@ -98,7 +98,7 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
             </div>
 
             {days.map((day, i) => {
-              const dayEvents = events.filter(e => isSameDay(parseISO(e.start), day));
+              const dayEvents = events.filter(e => isSameDay(parseAsLocal(e.start), day));
               const isToday = isSameDay(day, now);
 
               return (
@@ -106,15 +106,16 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
                   key={i}
                   id={isToday ? "today-column" : undefined}
                   className={cn(
-                    "flex-1 relative border-r border-gray-100 last:border-r-0",
+                    "flex-1 relative border-r border-gray-100 last:border-r-0 min-w-[120px]",
                     isToday && "bg-red-50/10"
                   )}
                 >
                   {dayEvents.map(event => {
-                    const pos = getEventPosition(event.start, event.end, 8, 23);
+                    const pos = getEventPosition(event.start, event.end, 8);
                     const isUpcoming = isEventInNextTwoHours(event.start, now);
-                    const categoryColor = CATEGORY_COLORS[event.category] || CATEGORY_COLORS.Other;
-                    const mutedColor = CATEGORY_TEXT_MUTED[event.category] || CATEGORY_TEXT_MUTED.Other;
+                    const categoryKey = event.category.trim();
+                    const categoryColor = CATEGORY_COLORS[categoryKey] || CATEGORY_COLORS.Other;
+                    const mutedColor = CATEGORY_TEXT_MUTED[categoryKey] || CATEGORY_TEXT_MUTED.Other;
                     
                     return (
                       <motion.button
@@ -143,7 +144,7 @@ export default function WeekCalendar({ days, events, onEventClick, now }: WeekCa
                               "text-[9px] mt-0.5 font-medium",
                               isUpcoming ? "text-red-100" : mutedColor
                             )}>
-                              {format(parseISO(event.start), "h:mm a")} – {format(parseISO(event.end), "h:mm a")}
+                              {format(parseAsLocal(event.start), "h:mm a")} – {format(parseAsLocal(event.end), "h:mm a")}
                             </p>
                           </div>
                           
